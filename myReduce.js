@@ -1,16 +1,19 @@
 let arr = [1, 2, 3, 4, 5];
 
-function myReduce(cb, initialValue) {
+Array.prototype.myReduce = function (cb, initialValue) {
   let accu = initialValue ? initialValue : this[0];
-  for (let index = init ? 0 : 1; index < this.length; index++) {
-    accu = cb(accu, this[index], index, this);
+  for (let index = initialValue ? 0 : 1; index < this.length; index++) {
+    accu = cb.call(null, accu, this[index], index, this);
   }
   return accu;
-}
+};
 
 // let sum = arr.reduce(function (init, num) {
 //   console.log("this :>> ", this);
 //   return init + num;
 // });
 // console.log("sum :>> ", sum);
-arr.reduce();
+let res = arr.myReduce((item, num) => {
+  return item + num;
+});
+console.log("res :>> ", res);
